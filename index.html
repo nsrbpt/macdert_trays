@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MACDERT TRAYS — DSA Problem Tracker</title>
+  <meta name="description" content="MACDERT TRAYS: Ultimate DSA Problem Tracker for Striver A2Z Sheet with LeetCode, Codeforces, and CodeChef problems.">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sb-sec">
+      <div class="logo" id="logoHome">⚡ MACDERT TRAYS</div>
+      <div class="logo-sub">Striver A2Z · Java</div>
+    </div>
+    <div class="sb-sec">
+      <div class="sb-info-row">
+        <span class="heading-orb rank-name" id="rankLbl">NEWBIE</span>
+        <span class="text-mono xp-val" id="xpPts">0 XP</span>
+      </div>
+      <div class="xp-bg"><div class="xp-fill" id="xpFill"></div></div>
+      <div class="streak-row">
+        <span class="fire-ico">🔥</span>
+        <span class="heading-orb streak-val" id="streakVal">0</span>
+        <div class="streak-lbl" id="streakSub">Day Streak<br>Keep it alive!</div>
+      </div>
+      <div class="freeze-row">
+        <span class="streak-lbl" id="freezeLbl">🧊 1 Freeze left</span>
+        <button class="freeze-btn" id="btnFreeze">Use Freeze</button>
+      </div>
+    </div>
+    <div class="sb-sec">
+      <div class="streak-lbl">🍅 Pomodoro</div>
+      <div class="pom-row">
+        <div class="pom-timer" id="pomTimer">25:00</div>
+        <div class="pom-ctrls">
+          <button class="freeze-btn" id="pomBtn">Start</button>
+          <button class="freeze-btn" id="pomReset">Reset</button>
+        </div>
+      </div>
+    </div>
+    <nav class="nav-wrap">
+      <div class="nav-lbl">Navigation</div>
+      <div class="nav-item act" id="n-dash"><span class="nav-icon">📊</span>Dashboard</div>
+      <div class="nav-item" id="n-sheet"><span class="nav-icon">📋</span>Problem Sheet <span class="nav-badge" id="nb-sheet">0/750</span></div>
+      <div class="nav-item" id="n-bk"><span class="nav-icon">🔖</span>Bookmarks <span class="nav-badge" id="nb-bk">0</span></div>
+      <div class="nav-item" id="n-rev"><span class="nav-icon">🔄</span>Revision <span class="nav-badge" id="nb-rev">0</span></div>
+
+      <div class="nav-lbl">Topics</div>
+      <div id="navTopics"></div>
+
+      <div class="nav-lbl">More</div>
+      <div class="nav-item" id="n-lb"><span class="nav-icon">🏆</span>Leaderboard</div>
+      <div class="nav-item" id="n-bdg"><span class="nav-icon">🎖️</span>Achievements</div>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main id="main">
+    <!-- TOPBAR -->
+    <div id="topbar">
+      <div class="tb-left">
+        <input type="text" class="search-inp" id="searchInp" placeholder="Search name, code, tags, companies...">
+        <button class="filter-btn on" id="fb-all">All</button>
+        <button class="filter-btn" id="fb-easy">Easy</button>
+        <button class="filter-btn" id="fb-med">Medium</button>
+        <button class="filter-btn" id="fb-hard">Hard</button>
+        <button class="filter-btn" id="fb-uns">Unsolved</button>
+        <button class="filter-btn" id="fb-bk">🔖 Saved</button>
+        <button class="filter-btn" id="fb-str">⭐ Striver</button>
+        <button class="filter-btn" id="fb-lc">LC</button>
+        <button class="filter-btn" id="fb-cf">CF</button>
+        <button class="filter-btn" id="fb-cc">CC</button>
+      </div>
+      <div class="tb-right">
+        <div class="cf-timer-box">
+          <span class="cftime-disp" id="cfTimerDisp">00:00:00</span>
+          <button class="filter-btn" id="cf1">1h</button>
+          <button class="filter-btn" id="cf2">2h</button>
+          <button class="filter-btn" id="cfC">Set</button>
+          <button class="filter-btn" id="cfP">Pause</button>
+        </div>
+        <button class="filter-btn" id="btnExport">⬇ Export</button>
+        <button class="filter-btn" id="btnImport">⬆ Import</button>
+        <input type="file" id="importInp" accept=".json" hidden>
+      </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="page active" id="p-dash">
+      <div class="pg-title">Welcome back to <span>MACDERT TRAYS</span> 👾</div>
+      <div class="pg-sub text-mono" id="dashSub">// your path to faang</div>
+      <div class="card-grid">
+        <div class="stat-card"><div class="st-lbl text-mono">Problems Solved</div><div class="heading-orb st-val" id="sv-sol">0</div><div class="st-sub text-mono" id="sv-rem">0 remaining</div></div>
+        <div class="stat-card"><div class="st-lbl text-mono">Total XP</div><div class="heading-orb st-val neon-c" id="sv-xp">0</div><div class="st-sub text-mono" id="sv-rnk">Rank: Newbie</div></div>
+        <div class="stat-card"><div class="st-lbl text-mono">Current Streak</div><div class="heading-orb st-val fire-c" id="sv-strk">0</div><div class="st-sub text-mono" id="sv-bst">Best: 0 days</div></div>
+        <div class="stat-card"><div class="st-lbl text-mono">Days to Complete</div><div class="heading-orb st-val blue-c" id="sv-eta">—</div><div class="st-sub text-mono">at 5 problems/day</div></div>
+      </div>
+      <div class="diff-bars">
+        <div class="diff-card"><div class="d-top"><span class="text-mono d-lbl easy-c">Easy</span><span class="text-mono d-val easy-c" id="df-easy">0/0</span></div><div class="d-bg"><div class="d-fill easy-bg" id="dfb-easy"></div></div></div>
+        <div class="diff-card"><div class="d-top"><span class="text-mono d-lbl med-c">Medium</span><span class="text-mono d-val med-c" id="df-med">0/0</span></div><div class="d-bg"><div class="d-fill med-bg" id="dfb-med"></div></div></div>
+        <div class="diff-card"><div class="d-top"><span class="text-mono d-lbl hard-c">Hard</span><span class="text-mono d-val hard-c" id="df-hard">0/0</span></div><div class="d-bg"><div class="d-fill hard-bg" id="dfb-hard"></div></div></div>
+      </div>
+      <div class="section-box">
+        <div class="sec-title heading-orb"><div class="sec-dot"></div>Topic Progress</div>
+        <div class="rings-grid" id="ringsGrid"></div>
+      </div>
+      <div class="section-box">
+        <div class="sec-title heading-orb"><div class="sec-dot"></div>Activity Heatmap — 52 weeks</div>
+        <div class="hm-wrap" id="heatmapGrid"></div>
+      </div>
+      <div class="section-box">
+        <div class="sec-title heading-orb"><div class="sec-dot"></div>Achievements</div>
+        <div class="badges-grid" id="badgesPreview"></div>
+      </div>
+    </div>
+
+    <!-- Sheet -->
+    <div class="page" id="p-sheet">
+      <div class="pg-title">📋 Problem <span>Sheet</span></div>
+      <div class="pg-sub text-mono" id="sheetSub">Showing: 750 problems</div>
+      <div id="sheetBody"></div>
+    </div>
+
+    <!-- Bookmarks -->
+    <div class="page" id="p-bk">
+      <div class="pg-title">🔖 <span>Bookmarks</span></div>
+      <div class="pg-sub text-mono">// problems saved for later</div>
+      <div id="bkBody"></div>
+    </div>
+
+    <!-- Revision -->
+    <div class="page" id="p-rev">
+      <div class="pg-title">🔄 <span>Revision</span></div>
+      <div class="pg-sub text-mono">// problems marked for future practice</div>
+      <div id="revBody"></div>
+    </div>
+
+    <!-- Problem Detail -->
+    <div class="page" id="p-detail">
+      <div class="detail-back">
+        <button class="act-btn" id="btnBackSheet">← Back to Sheet</button>
+      </div>
+      <div id="detailContent"></div>
+    </div>
+
+    <!-- Leaderboard -->
+    <div class="page" id="p-lb">
+      <div class="pg-title">🏆 <span>Leaderboard</span></div>
+      <div class="pg-sub text-mono">// your progress vs simulated peers</div>
+      <div class="tw" id="lbBody"></div>
+    </div>
+
+    <!-- Badges -->
+    <div class="page" id="p-bdg">
+      <div class="pg-title">🎖️ <span>Achievements</span></div>
+      <div class="pg-sub text-mono">// earn badges by grinding</div>
+      <div class="badges-grid" id="allBadgesGrid"></div>
+    </div>
+  </main>
+
+  <!-- NOTES MODAL -->
+  <div class="mod-bg" id="noteModal">
+    <div class="mod">
+      <div class="mod-hd heading-orb"><span class="neon-c">//</span> ADD NOTE<button class="mod-cls" id="clsNote">×</button></div>
+      <div class="pg-sub text-mono" id="nm-prob"></div>
+      <textarea class="tx" id="taNote" placeholder="Write your approach, complexity, edge cases..."></textarea>
+      <div class="mod-foot">
+        <button class="btn" id="cnNote">Cancel</button>
+        <button class="btn prm" id="svNote">SAVE NOTE</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 30 MIN HINT REMINDER -->
+  <div class="mod-bg" id="hintReminder">
+    <div class="mod">
+      <div class="mod-hd heading-orb"><span class="neon-c">//</span> TIME CHECK<button class="mod-cls" id="clsReminder">×</button></div>
+      <div class="reminder-body">
+        <div class="reminder-icon">⚠</div>
+        <div class="reminder-text">30 minutes crossed.<br>Need help?</div>
+        <div class="reminder-btns">
+          <button class="btn prm" id="btnReminderHint">View Hint</button>
+          <button class="btn" id="btnKeepTrying">Keep Trying</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast"></div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
